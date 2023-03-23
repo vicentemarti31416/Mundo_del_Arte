@@ -28,7 +28,7 @@ const postObras = async (req, res) => {
       const putObras = new Obras(req.body);
       putObras._id = id;
   
-      const updateObras = await Obras.findByIdAndUpdate(id, putObras); 
+      const updateObras = await Obras.findByIdAndUpdate(id, putObras, {new: true}); 
       if(!updateObras) {    
       return res.status(404).json({ message: "Obras not found" });
       } 
