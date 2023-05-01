@@ -14,7 +14,6 @@ const postObras = async (req, res) => {
     console.log(req.body);
     const { name, location, works, foundation } = req.body;
     const newObras = new Obras({ name, location, works, foundation });
-
     const createdObras = await newObras.save();
     return res.status(201).json(createdObras);
   } catch (error) {
@@ -27,7 +26,8 @@ const putObras = async (req, res) => {
     const { id } = req.params;
     const putObras = new Obras(req.body);
     putObras._id = id;
-
+    console.log(req.file)
+    putObras.image = req.file.path;
     const updateObras = await Obras.findByIdAndUpdate(id, putObras, { new: true });
     if (!updateObras) {
       return res.status(404).json({ message: "Obras not found" });
